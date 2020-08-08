@@ -1,0 +1,9 @@
+corte
+20
+20
+barba
+20
+20
+sombrancelha
+5
+5

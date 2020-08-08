@@ -1,0 +1,16 @@
+release/Agenda.o
+release/Cadastro.o
+release/Catalogo.o
+release/Cliente.o
+release/Pessoa.o
+release/Profissional.o
+release/main.o
+release/mainwindow.o
+release/newcliente.o
+release/newfuncionario.o
+release/viewcliente.o
+release/qrc_recursos.o
+release/moc_mainwindow.o
+release/moc_newcliente.o
+release/moc_newfuncionario.o
+release/moc_viewcliente.o
