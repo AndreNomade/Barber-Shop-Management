@@ -10,10 +10,14 @@ viewfuncionario::viewfuncionario(QWidget *parent) :
 
 
     ui->tbwFuncionario->setColumnCount(5);
+
+    //Lista com itens do cabeçalho
     QStringList header = {"Nome", "CPF", "Cargo","Salario","cadeira"};
 
+    // Cria o cabeçalho
     ui->tbwFuncionario->setHorizontalHeaderLabels(header);
 
+    // Configura o tamanho da coluna e quantas linhas terá
     ui->tbwFuncionario->setColumnWidth(0, 155);
     ui->tbwFuncionario->setColumnWidth(1, 155);
     ui->tbwFuncionario->setColumnWidth(1, 150);
@@ -22,9 +26,10 @@ viewfuncionario::viewfuncionario(QWidget *parent) :
     ui->tbwFuncionario->setColumnWidth(1, 150);
 
     ifstream ifs("Funcionario.txt");
-    if(ifs.is_open()){
+    if(ifs.is_open())
+    {
 
-        //char* nome, int cpf, char* cargo, float salario, int cadeira
+
 
         int linha = 0;
 
@@ -34,21 +39,27 @@ viewfuncionario::viewfuncionario(QWidget *parent) :
         float salario;
         int cadeira;
 
+        //leitura do arquivo:
         ifs >> nome;
         ifs >> cpf;
         ifs >> cargo;
         ifs >> salario;
         ifs >> cadeira;
 
-        while(ifs.good()){
+        while(ifs.good())
+        {
+
+            //insere a linha de numero armazenado na variavel linha
             ui->tbwFuncionario->insertRow(linha);
 
+            //inserindo o que foi lido do arquivo na tabela, e na  linha  de nº armazenado na variavel "linha"
             ui->tbwFuncionario->setItem(linha, 0, new QTableWidgetItem(nome));
             ui->tbwFuncionario->setItem(linha, 1, new QTableWidgetItem(to_string(cpf).c_str()));
             ui->tbwFuncionario->setItem(linha, 2, new QTableWidgetItem(cargo));
             ui->tbwFuncionario->setItem(linha, 3, new QTableWidgetItem(to_string(salario).c_str()));
             ui->tbwFuncionario->setItem(linha, 4, new QTableWidgetItem(to_string(cadeira).c_str()));
 
+            //lendo os proximos dados do arquivo txt
             ifs >> nome;
             ifs >> cpf;
             ifs >> cargo;
@@ -83,7 +94,7 @@ void viewfuncionario::on_btnBuscar_clicked()
             int linha = 0;
 
             char nome[30];
-            char cpf[16];
+            int cpf;
             char cargo[30];
             float salario;
             int cadeira;
@@ -99,12 +110,12 @@ void viewfuncionario::on_btnBuscar_clicked()
 
             while (ifs.good() && !achou )
             {
-                if (!strcmp(char_nome, ""))
+                if (!strcmp(char_nome, ""))//se o usuario não digitou nada, irá voltar a tabela ao normal
                 {
                     ui->tbwFuncionario->insertRow(linha);
 
                     ui->tbwFuncionario->setItem(linha, 0, new QTableWidgetItem(nome));
-                    ui->tbwFuncionario->setItem(linha, 1, new QTableWidgetItem(cpf));
+                    ui->tbwFuncionario->setItem(linha, 1, new QTableWidgetItem(to_string(cpf).c_str()));
                     ui->tbwFuncionario->setItem(linha, 2, new QTableWidgetItem(cargo));
                     ui->tbwFuncionario->setItem(linha, 3, new QTableWidgetItem(to_string(salario).c_str()));
                     ui->tbwFuncionario->setItem(linha, 4, new QTableWidgetItem(to_string(cadeira).c_str()));
@@ -119,13 +130,13 @@ void viewfuncionario::on_btnBuscar_clicked()
                 }
                 else
                 {
-                    if (!strcmp(char_nome, nome))
+                    if (!strcmp(char_nome, nome))//se o nome do arquivo for igual ao inserido pelo usuario, adiciona ele na tabela
                     {
 
                         ui->tbwFuncionario->insertRow(linha);
 
                         ui->tbwFuncionario->setItem(linha, 0, new QTableWidgetItem(nome));
-                        ui->tbwFuncionario->setItem(linha, 1, new QTableWidgetItem(cpf));
+                        ui->tbwFuncionario->setItem(linha, 1, new QTableWidgetItem(to_string(cpf).c_str()));
                         ui->tbwFuncionario->setItem(linha, 2, new QTableWidgetItem(cargo));
                         ui->tbwFuncionario->setItem(linha, 3, new QTableWidgetItem(to_string(salario).c_str()));
                         ui->tbwFuncionario->setItem(linha, 4, new QTableWidgetItem(to_string(cadeira).c_str()));
@@ -136,7 +147,7 @@ void viewfuncionario::on_btnBuscar_clicked()
 
 
                     }
-                    else
+                    else// se não, le as proximas linhas
                     {
                         ifs >> nome;
                         ifs >> cpf;
@@ -156,12 +167,12 @@ void viewfuncionario::on_delete_2_clicked()
     remove("Funcionario.txt"); //apagando o txt de servicos, para poder inserir o novo com modificações.
 
     int qtd_linhas;
-    qtd_linhas = ui->tbwFuncionario->rowCount();
+    qtd_linhas = ui->tbwFuncionario->rowCount(); // quantidade de linhas da tabela.
 
     Profissional* p;
 
     char nome[30];
-    char cpf[16];
+    int cpf;
     char cargo[30];
     float salario;
     int cadeira;
@@ -187,17 +198,17 @@ void viewfuncionario::on_delete_2_clicked()
 
          //abaixo convertendo de QString para os tipos necessarios
         strcpy(nome, qnome.toStdString().c_str());
-        strcpy(cpf, qcpf.toStdString().c_str());
+        cpf = qcpf.toInt();
         strcpy(cargo, qcargo.toStdString().c_str());
         salario = qsalario.toFloat();
         cadeira = qcadeira.toInt();
 
         selec = ui->tbwFuncionario->selectionModel()->currentIndex().row(); //pegando a linha selecionada
-     //verificando se é o selecionado
 
-     if(((ui->tbwFuncionario ->item(selec,1)->text()))== cpf)
+
+     if(((ui->tbwFuncionario ->item(selec,1)->text()).toInt())== cpf)  //verificando se o cpf  da linha selecionada é igual ao lido  anteriormente
      {
-         linha++;
+         linha++; // se for, só ira para a proxima linha
      }
      else
      {
@@ -229,7 +240,7 @@ void viewfuncionario::on_delete_2_clicked()
         {
             ui->tbwFuncionario->insertRow(linha);
             ui->tbwFuncionario->setItem(linha, 0, new QTableWidgetItem(nome));
-            ui->tbwFuncionario->setItem(linha, 1, new QTableWidgetItem(cpf));
+            ui->tbwFuncionario->setItem(linha, 1, new QTableWidgetItem(to_string(cpf).c_str()));
             ui->tbwFuncionario->setItem(linha, 2, new QTableWidgetItem(cargo));
             ui->tbwFuncionario->setItem(linha, 3, new QTableWidgetItem(to_string(salario).c_str()));
             ui->tbwFuncionario->setItem(linha, 4, new QTableWidgetItem(to_string(cadeira).c_str()));
@@ -251,17 +262,16 @@ void viewfuncionario::on_delete_2_clicked()
 
 void viewfuncionario::on_edit_clicked()
 {
-    qDebug()<<"teste";
 
     remove("Funcionario.txt"); //apagando o txt de servicos, para poder inserir o novo com modificações.
 
     int qtd_linhas;
-    qtd_linhas = ui->tbwFuncionario->rowCount();
+    qtd_linhas = ui->tbwFuncionario->rowCount();// quantidade de linhas da tabela.
 
     Profissional* p;
 
     char nome[30];
-    char cpf[16];
+    int cpf;
     char cargo[30];
     float salario;
     int cadeira;
@@ -283,17 +293,17 @@ void viewfuncionario::on_edit_clicked()
         qsalario = ui->tbwFuncionario->item(linha,3)->text();
         qcadeira = ui->tbwFuncionario->item(linha,4)->text();
 
-        qDebug() << ui->tbwFuncionario->item(linha,2)->text();
-         //abaixo convertendo de QString para os tipos necessarios
+
+        //abaixo convertendo de QString para os tipos necessarios
         strcpy(nome, qnome.toStdString().c_str());
-        strcpy(cpf, qcpf.toStdString().c_str());
+        cpf = qcpf.toInt();
         strcpy(cargo, qcargo.toStdString().c_str());
         salario = qsalario.toFloat();
         cadeira = qcadeira.toInt();
 
-        p = new Profissional(nome, cpf, cargo,salario,cadeira);
+        p = new Profissional(nome, cpf, cargo,salario,cadeira); // criando um objeto da Classe Profissional com as informações recebidas
         Cadastro cad;
-        cad.gravaFuncionario(p);
+        cad.gravaFuncionario(p); //gravando o objeto no arquivo
         linha++;
     }
 }

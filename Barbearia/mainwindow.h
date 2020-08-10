@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <iostream>
+#include <QMessageBox>
 #include "newfuncionario.h"
 #include "viewfuncionario.h"
 #include "newcliente.h"
@@ -32,9 +33,12 @@ private slots:
     void on_buscarCliente_triggered();
 
     void on_adicionarServico_triggered();
-    void on_listarServicos_triggered();
 
     void on_excluirFuncionario_triggered();
+
+    void on_actionAtualizar_triggered();
+
+    void on_actionAjuda_triggered();
 
 private:
     Ui::MainWindow *ui;

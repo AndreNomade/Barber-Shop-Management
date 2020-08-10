@@ -16,9 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Agenda.cpp \
     Cadastro.cpp \
-    Catalogo.cpp \
     Cliente.cpp \
     Pessoa.cpp \
     Profissional.cpp \
@@ -29,13 +27,10 @@ SOURCES += \
     newfuncionario.cpp \
     newservico.cpp \
     viewcliente.cpp \
-    viewfuncionario.cpp \
-    viewservicos.cpp
+    viewfuncionario.cpp
 
 HEADERS += \
-    Agenda.h \
     Cadastro.h \
-    Catalogo.h \
     Cliente.h \
     Pessoa.h \
     Profissional.h \
@@ -45,8 +40,7 @@ HEADERS += \
     newfuncionario.h \
     newservico.h \
     viewcliente.h \
-    viewfuncionario.h \
-    viewservicos.h
+    viewfuncionario.h
 
 FORMS += \
     mainwindow.ui \
@@ -54,8 +48,7 @@ FORMS += \
     newfuncionario.ui \
     newservico.ui \
     viewcliente.ui \
-    viewfuncionario.ui \
-    viewservicos.ui
+    viewfuncionario.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -1,7 +1,9 @@
-//
-// Created by Caique Rocha on 25/11/19.
-//
-
+// Created by: on 25/11/19:
+//Caique Rocha 
+//André Santana  
+//Rafael Turing
+//Juan Pablo
+//Lucas Marchiori
 #ifndef BABERARIA_CLIENTE_H
 #define BABERARIA_CLIENTE_H
 
@@ -12,18 +14,18 @@ class Cliente : public Pessoa {
 
 public:
     Cliente();
-    Cliente(string nome, string cpf, string contato);
+    Cliente(char* nome, int cpf, int contato);
 
 
     virtual ~Cliente();
 
-    string getContato();
+    int getContato();
 
-    void setContato(string contado);
+    void setContato(int contado);
 
 
 private:
-    string contato;
+    int contato;
 };
 
 

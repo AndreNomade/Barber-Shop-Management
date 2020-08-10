@@ -23,7 +23,11 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Barber Shop Management</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="recursos.qrc">
+    <normaloff>:/img/icones/Barbearia.png</normaloff>:/img/icones/Barbearia.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -123,11 +127,18 @@
      <string>Serviços</string>
     </property>
     <addaction name="adicionarServico"/>
-    <addaction name="listarServicos"/>
+   </widget>
+   <widget class="QMenu" name="menuConfigura_es">
+    <property name="title">
+     <string>Configurações</string>
+    </property>
+    <addaction name="actionAtualizar"/>
+    <addaction name="actionAjuda"/>
    </widget>
    <addaction name="menuClientes"/>
    <addaction name="menuFuncion_rios"/>
    <addaction name="menuServi_os"/>
+   <addaction name="menuConfigura_es"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="sizePolicy">
@@ -155,9 +166,9 @@
    <addaction name="separator"/>
    <addaction name="novoFuncionario"/>
    <addaction name="separator"/>
-   <addaction name="novoAcento"/>
-   <addaction name="separator"/>
    <addaction name="adicionarServico"/>
+   <addaction name="separator"/>
+   <addaction name="actionAjuda"/>
    <addaction name="separator"/>
   </widget>
   <action name="adicionarCliente">
@@ -214,10 +225,10 @@
      <normaloff>:/img/icones/maquina.png</normaloff>:/img/icones/maquina.png</iconset>
    </property>
    <property name="text">
-    <string>Adicionar</string>
+    <string>Agendar</string>
    </property>
    <property name="toolTip">
-    <string>Adicionar novo servicio</string>
+    <string>Agendar serviço</string>
    </property>
   </action>
   <action name="listarServicos">
@@ -232,16 +243,22 @@
     <string>Listar todos serviços</string>
    </property>
   </action>
-  <action name="novoAcento">
+  <action name="actionAtualizar">
    <property name="icon">
     <iconset resource="recursos.qrc">
-     <normaloff>:/img/icones/acento.png</normaloff>:/img/icones/acento.png</iconset>
+     <normaloff>:/img/icones/Atualizar.png</normaloff>:/img/icones/Atualizar.png</iconset>
    </property>
    <property name="text">
-    <string>Novo</string>
+    <string>Atualizar agenda</string>
    </property>
-   <property name="toolTip">
-    <string>Criar um novo acento</string>
+  </action>
+  <action name="actionAjuda">
+   <property name="icon">
+    <iconset resource="recursos.qrc">
+     <normaloff>:/img/icones/help.png</normaloff>:/img/icones/help.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ajuda</string>
    </property>
   </action>
  </widget>

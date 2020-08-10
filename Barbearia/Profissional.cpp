@@ -1,10 +1,13 @@
-//
-// Created by Caique Rocha on 25/11/19.
-//
+// Created by: on 25/11/19:
+// Caique Rocha 
+// André Santana  
+// Rafael Turing
+// Juan Pablo
+// Lucas Marchiori
 
 #include "Profissional.h"
 
-Profissional::Profissional(string nome, string cpf, char* cargo, float salario, int cadeira) : Pessoa(nome, cpf){
+Profissional::Profissional(char* nome, int cpf, char* cargo, float salario, int cadeira) : Pessoa(nome, cpf){
     strcpy(this->cargo, cargo);
 
     this->salario = salario;

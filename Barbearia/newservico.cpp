@@ -1,8 +1,6 @@
 #include "newservico.h"
 #include "ui_newservico.h"
-#include <QCompleter>
-#include <QMessageBox>
-#include "Cadastro.h"
+
 
 NewServico::NewServico(QWidget *parent) :
     QDialog(parent),
@@ -44,19 +42,13 @@ void NewServico::on_btnSalvar_clicked()
     QDate data = ui->dateEdit->date();
     QTime hora = ui->timeEdit->time();
 
-
     strcpy(str_nome, ui -> Nome -> text().toStdString().c_str());
-    //float valor = ui -> Valor -> text().toFloat();
-    //int tempo = ui ->Tempo -> text().toInt();
-
-
 
     s = new Servico(str_nome, cabelo, barba, cadeira, data, hora);
 
     if(ui->Nome->text() == ""){
 
         QMessageBox::warning(this, "Atenção", "Nome não pode ser vazio !");
-
 
     } else  if (!ui->cbCabelo->isChecked() && !ui->cbBarba->isChecked()){
 
@@ -65,12 +57,7 @@ void NewServico::on_btnSalvar_clicked()
 
     Cadastro cad;
 
-
-
-
     ui -> Nome -> clear();
-    //ui -> Valor -> clear();
-    //ui -> Tempo -> clear();
 
     ui ->gravou ->setText(cad.gravaServico(s));
 }

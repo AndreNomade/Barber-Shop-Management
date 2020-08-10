@@ -12,10 +12,17 @@
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QDateEdit>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QTimeEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -24,16 +31,22 @@ QT_BEGIN_NAMESPACE
 class Ui_NewServico
 {
 public:
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout_3;
+    QWidget *layoutWidget;
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout;
     QLabel *label0;
-    QLabel *label1;
-    QLabel *label2;
-    QWidget *verticalLayoutWidget_2;
-    QVBoxLayout *verticalLayout_2;
     QLineEdit *Nome;
-    QLineEdit *Valor;
-    QLineEdit *Tempo;
+    QFormLayout *formLayout;
+    QLabel *label;
+    QCheckBox *cbCabelo;
+    QCheckBox *cbBarba;
+    QGridLayout *gridLayout;
+    QLabel *label_2;
+    QLabel *label_3;
+    QTimeEdit *timeEdit;
+    QLabel *label_4;
+    QDateEdit *dateEdit;
+    QSpinBox *spinBox;
     QPushButton *btnSalvar;
     QLabel *gravou;
 
@@ -41,20 +54,20 @@ public:
     {
         if (NewServico->objectName().isEmpty())
             NewServico->setObjectName(QString::fromUtf8("NewServico"));
-        NewServico->resize(303, 250);
+        NewServico->resize(292, 340);
         NewServico->setContextMenuPolicy(Qt::NoContextMenu);
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/img/icones/maquina.png"), QSize(), QIcon::Normal, QIcon::Off);
         NewServico->setWindowIcon(icon);
-        verticalLayoutWidget = new QWidget(NewServico);
-        verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(40, 20, 51, 131));
-        verticalLayout_3 = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout_3->setSpacing(4);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        verticalLayout_3->setSizeConstraint(QLayout::SetNoConstraint);
-        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
-        label0 = new QLabel(verticalLayoutWidget);
+        layoutWidget = new QWidget(NewServico);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(30, 23, 230, 275));
+        verticalLayout = new QVBoxLayout(layoutWidget);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        label0 = new QLabel(layoutWidget);
         label0->setObjectName(QString::fromUtf8("label0"));
         label0->setMinimumSize(QSize(0, 0));
         label0->setFrameShape(QFrame::NoFrame);
@@ -64,53 +77,81 @@ public:
         label0->setMargin(0);
         label0->setIndent(-1);
 
-        verticalLayout_3->addWidget(label0, 0, Qt::AlignHCenter);
+        horizontalLayout->addWidget(label0);
 
-        label1 = new QLabel(verticalLayoutWidget);
-        label1->setObjectName(QString::fromUtf8("label1"));
-        label1->setMinimumSize(QSize(0, 0));
-        label1->setFrameShape(QFrame::NoFrame);
-        label1->setTextFormat(Qt::AutoText);
-        label1->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_3->addWidget(label1, 0, Qt::AlignHCenter);
-
-        label2 = new QLabel(verticalLayoutWidget);
-        label2->setObjectName(QString::fromUtf8("label2"));
-        label2->setFrameShape(QFrame::NoFrame);
-        label2->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_3->addWidget(label2);
-
-        verticalLayoutWidget_2 = new QWidget(NewServico);
-        verticalLayoutWidget_2->setObjectName(QString::fromUtf8("verticalLayoutWidget_2"));
-        verticalLayoutWidget_2->setGeometry(QRect(90, 20, 151, 141));
-        verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget_2);
-        verticalLayout_2->setSpacing(10);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        verticalLayout_2->setSizeConstraint(QLayout::SetNoConstraint);
-        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        Nome = new QLineEdit(verticalLayoutWidget_2);
+        Nome = new QLineEdit(layoutWidget);
         Nome->setObjectName(QString::fromUtf8("Nome"));
 
-        verticalLayout_2->addWidget(Nome);
+        horizontalLayout->addWidget(Nome);
 
-        Valor = new QLineEdit(verticalLayoutWidget_2);
-        Valor->setObjectName(QString::fromUtf8("Valor"));
 
-        verticalLayout_2->addWidget(Valor);
+        verticalLayout->addLayout(horizontalLayout);
 
-        Tempo = new QLineEdit(verticalLayoutWidget_2);
-        Tempo->setObjectName(QString::fromUtf8("Tempo"));
+        formLayout = new QFormLayout();
+        formLayout->setObjectName(QString::fromUtf8("formLayout"));
+        label = new QLabel(layoutWidget);
+        label->setObjectName(QString::fromUtf8("label"));
 
-        verticalLayout_2->addWidget(Tempo);
+        formLayout->setWidget(0, QFormLayout::LabelRole, label);
 
-        btnSalvar = new QPushButton(NewServico);
+        cbCabelo = new QCheckBox(layoutWidget);
+        cbCabelo->setObjectName(QString::fromUtf8("cbCabelo"));
+
+        formLayout->setWidget(1, QFormLayout::LabelRole, cbCabelo);
+
+        cbBarba = new QCheckBox(layoutWidget);
+        cbBarba->setObjectName(QString::fromUtf8("cbBarba"));
+
+        formLayout->setWidget(1, QFormLayout::FieldRole, cbBarba);
+
+
+        verticalLayout->addLayout(formLayout);
+
+        gridLayout = new QGridLayout();
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        label_2 = new QLabel(layoutWidget);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+
+        gridLayout->addWidget(label_2, 0, 0, 1, 1);
+
+        label_3 = new QLabel(layoutWidget);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+
+        gridLayout->addWidget(label_3, 1, 0, 1, 1);
+
+        timeEdit = new QTimeEdit(layoutWidget);
+        timeEdit->setObjectName(QString::fromUtf8("timeEdit"));
+
+        gridLayout->addWidget(timeEdit, 1, 1, 1, 1);
+
+        label_4 = new QLabel(layoutWidget);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        gridLayout->addWidget(label_4, 2, 0, 1, 1);
+
+        dateEdit = new QDateEdit(layoutWidget);
+        dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
+
+        gridLayout->addWidget(dateEdit, 0, 1, 1, 1);
+
+        spinBox = new QSpinBox(layoutWidget);
+        spinBox->setObjectName(QString::fromUtf8("spinBox"));
+
+        gridLayout->addWidget(spinBox, 2, 1, 1, 1);
+
+
+        verticalLayout->addLayout(gridLayout);
+
+        btnSalvar = new QPushButton(layoutWidget);
         btnSalvar->setObjectName(QString::fromUtf8("btnSalvar"));
-        btnSalvar->setGeometry(QRect(60, 200, 161, 31));
-        gravou = new QLabel(NewServico);
+
+        verticalLayout->addWidget(btnSalvar);
+
+        gravou = new QLabel(layoutWidget);
         gravou->setObjectName(QString::fromUtf8("gravou"));
-        gravou->setGeometry(QRect(30, 170, 221, 21));
+
+        verticalLayout->addWidget(gravou);
+
 
         retranslateUi(NewServico);
 
@@ -120,9 +161,13 @@ public:
     void retranslateUi(QDialog *NewServico)
     {
         NewServico->setWindowTitle(QApplication::translate("NewServico", "Adicionar Servi\303\247o", nullptr));
-        label0->setText(QApplication::translate("NewServico", "Nome:", nullptr));
-        label1->setText(QApplication::translate("NewServico", "Valor:", nullptr));
-        label2->setText(QApplication::translate("NewServico", "Tempo:", nullptr));
+        label0->setText(QApplication::translate("NewServico", "Cliente:", nullptr));
+        label->setText(QApplication::translate("NewServico", "Servi\303\247os:", nullptr));
+        cbCabelo->setText(QApplication::translate("NewServico", "Cabelo", nullptr));
+        cbBarba->setText(QApplication::translate("NewServico", "Barba", nullptr));
+        label_2->setText(QApplication::translate("NewServico", "Data:", nullptr));
+        label_3->setText(QApplication::translate("NewServico", "Horario:", nullptr));
+        label_4->setText(QApplication::translate("NewServico", "Cadeira:", nullptr));
         btnSalvar->setText(QApplication::translate("NewServico", "Salvar", nullptr));
         gravou->setText(QString());
     } // retranslateUi

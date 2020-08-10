@@ -2,9 +2,10 @@
 #define NEWSERVICO_H
 
 #include <QDialog>
+#include <QCompleter>
+#include <QMessageBox>
 #include "Cadastro.h"
 #include "Servico.h"
-
 namespace Ui {
 class NewServico;
 }

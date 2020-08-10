@@ -1,22 +1,25 @@
-//
-// Created by Caique Rocha on 25/11/19.
-//
+// Created by: on 25/11/19:
+//Caique Rocha 
+//André Santana  
+//Rafael Turing
+//Juan Pablo
+//Lucas Marchiori
 
 #include "Cliente.h"
 Cliente::Cliente():Pessoa()
 {
 }
-Cliente::Cliente(string nome, string cpf, string contato) : Pessoa(nome, cpf), contato(contato) {}
+Cliente::Cliente(char* nome, int cpf, int contato) : Pessoa(nome, cpf), contato(contato) {}
 
 Cliente::~Cliente() {
 
 }
 
-string Cliente::getContato()  {
+int Cliente::getContato()  {
     return contato;
 }
 
-void Cliente::setContato(string contato) {
+void Cliente::setContato(int contato) {
     Cliente::contato = contato;
 }
 

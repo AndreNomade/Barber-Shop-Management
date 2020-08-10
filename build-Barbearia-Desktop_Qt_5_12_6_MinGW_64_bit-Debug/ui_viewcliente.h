@@ -33,12 +33,13 @@ public:
     QLineEdit *edtBuscar;
     QPushButton *btnBuscar;
     QTableWidget *tbwCliente;
+    QPushButton *pushButton;
 
     void setupUi(QDialog *viewCliente)
     {
         if (viewCliente->objectName().isEmpty())
             viewCliente->setObjectName(QString::fromUtf8("viewCliente"));
-        viewCliente->resize(452, 361);
+        viewCliente->resize(452, 388);
         layoutWidget = new QWidget(viewCliente);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
         layoutWidget->setGeometry(QRect(20, 20, 411, 331));
@@ -70,6 +71,9 @@ public:
 
         verticalLayout->addWidget(tbwCliente);
 
+        pushButton = new QPushButton(viewCliente);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setGeometry(QRect(190, 360, 121, 21));
 
         retranslateUi(viewCliente);
 
@@ -81,6 +85,7 @@ public:
         viewCliente->setWindowTitle(QApplication::translate("viewCliente", "Ver Cliente", nullptr));
         label->setText(QApplication::translate("viewCliente", "Nome:", nullptr));
         btnBuscar->setText(QApplication::translate("viewCliente", "Buscar", nullptr));
+        pushButton->setText(QApplication::translate("viewCliente", "Salvar edi\303\247\303\265es", nullptr));
     } // retranslateUi
 
 };

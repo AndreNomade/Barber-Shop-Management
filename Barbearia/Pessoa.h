@@ -1,6 +1,9 @@
-//
-// Created by Caique Rocha on 25/11/19.
-//
+// Created by: on 25/11/19:
+// Caique Rocha 
+// André Santana  
+// Rafael Turing
+// Juan Pablo
+// Lucas Marchiori
 
 #ifndef BABERARIA_PESSOA_H
 #define BABERARIA_PESSOA_H
@@ -12,24 +15,24 @@ class Pessoa {
 public:
 
     Pessoa();
-    Pessoa(string nome, string cpf);
+    Pessoa(char* nome, int cpf);
 
 
     virtual ~Pessoa();
 
-    string getNome();
+    char* getNome();
 
-    void setNome(string nome);
+    void setNome(char *nome);
 
-    string getCpf();
+    int getCpf() const;
 
-    void setCpf(string cpf);
+    void setCpf(int cpf);
 
 
 
 private:
-    string nome;
-    string cpf;
+    char nome[30];
+    int cpf;
 
 };
 

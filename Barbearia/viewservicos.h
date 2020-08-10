@@ -26,6 +26,8 @@ public:
 private slots:
     void on_save_clicked();
 
+    void on_edit_clicked();
+
 private:
     Ui::viewServicos *ui;
 };

@@ -6,74 +6,74 @@ viewServicos::viewServicos(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::viewServicos)
  {
-     ui->setupUi(this);
+    ifstream ifs("Servicos.txt");
 
-     ifstream ifs("Servicos.txt");
-
-     ui->tbwServicos->setColumnCount(5);
-     QStringList header = {"Cliente", "Hora", "Data", "Cadeira",  "Serviços"};
-
-     ui->tbwServicos->setHorizontalHeaderLabels(header);
-
-     ui->tbwServicos->setColumnWidth(0, 155);
-     ui->tbwServicos->setColumnWidth(1, 155);
-     ui->tbwServicos->setColumnWidth(2, 150);
-     ui->tbwServicos->setColumnWidth(3, 150);
-     ui->tbwServicos->setColumnWidth(4, 150);
-
-     if(ifs.is_open()){
-
-         int linha = 0;
-
-         char cliente[30];
-
-         int dia, mes, ano, hora, minuto;
-         int cadeira;
-         bool cabelo;
-         bool barba;
+    ui->tbwServicos->setColumnCount(5);
+    QStringList header = {"Cliente", "Hora", "Data", "Cadeira",  "Serviços"};
 
 
+    ui->tbwServicos->setHorizontalHeaderLabels(header);
 
-         ifs >> cliente;
-         ifs >> cabelo;
-         ifs >> barba;
-         ifs >> cadeira;
-         ifs >> dia;
-         ifs >> mes;
-         ifs >> ano;
-         ifs >> hora;
-         ifs >> minuto;
+    ui->tbwServicos->setColumnWidth(0, 100); // define coluna e o tamanho dela
+    ui->tbwServicos->setColumnWidth(1, 100);
+    ui->tbwServicos->setColumnWidth(2, 100);
+    ui->tbwServicos->setColumnWidth(3, 100);
+    ui->tbwServicos->setColumnWidth(4, 150);
 
+    if(ifs.is_open()){
+
+        int linha = 0;
+
+        char cliente[30];
+
+        int dia, mes, ano, hora, minuto;
+        int cadeira;
+        bool cabelo;
+        bool barba;
+
+
+        //leitura do arquivo:
+        ifs >> cliente;
+        ifs >> cabelo;
+        ifs >> barba;
+        ifs >> cadeira;
+        ifs >> dia;
+        ifs >> mes;
+        ifs >> ano;
+        ifs >> hora;
+        ifs >> minuto;
 
 
 
-         while(ifs.good()){
-             ui->tbwServicos->insertRow(linha);
 
-             QString sHora = QString::number(hora).rightJustified(2, '0') + ":" + QString::number(minuto).rightJustified(2, '0');
-             QString sData = QString::number(dia).rightJustified(2, '0') + "/" + QString::number(mes).rightJustified(2, '0') + "/" + QString::number(ano);
+        while(ifs.good()){
+            ui->tbwServicos->insertRow(linha); //insere a linha de numero armazenado na linha
 
-             ui->tbwServicos->setItem(linha, 0, new QTableWidgetItem(cliente));
-             ui->tbwServicos->setItem(linha, 1, new QTableWidgetItem(sHora));
-             ui->tbwServicos->setItem(linha, 2, new QTableWidgetItem(sData));
-             ui->tbwServicos->setItem(linha, 3, new QTableWidgetItem(QString::number(cadeira)));
-             ui->tbwServicos->setItem(linha, 4, new QTableWidgetItem(Servico::getServicos(cabelo, barba)));
+            QString sHora = QString::number(hora).rightJustified(2, '0') + ":" + QString::number(minuto).rightJustified(2, '0'); //formatando o horario
+            QString sData = QString::number(dia).rightJustified(2, '0') + "/" + QString::number(mes).rightJustified(2, '0') + "/" + QString::number(ano); // formatando a data
 
+            //inserindo o que foi lido do arquivo na tabela, de linha nº armazenado na variavel "linha"
+            ui->tbwServicos->setItem(linha, 0, new QTableWidgetItem(cliente));
+            ui->tbwServicos->setItem(linha, 1, new QTableWidgetItem(sHora));
+            ui->tbwServicos->setItem(linha, 2, new QTableWidgetItem(sData));
+            ui->tbwServicos->setItem(linha, 3, new QTableWidgetItem(QString::number(cadeira)));
+            ui->tbwServicos->setItem(linha, 4, new QTableWidgetItem(Servico::getServicos(cabelo, barba)));
 
-             ifs >> cliente;
-             ifs >> cabelo;
-             ifs >> barba;
-             ifs >> cadeira;
-             ifs >> dia;
-             ifs >> mes;
-             ifs >> ano;
-             ifs >> hora;
-             ifs >> minuto;
+            //lendo os proximos dados do arquivo txt
+            ifs >> cliente;
+            ifs >> cabelo;
+            ifs >> barba;
+            ifs >> cadeira;
+            ifs >> dia;
+            ifs >> mes;
+            ifs >> ano;
+            ifs >> hora;
+            ifs >> minuto;
 
-             linha++;
-         }
-     }
-     ifs.close();
+            linha++;
+        }
+    }
+    ifs.close();
 }
 
 viewServicos::~viewServicos()
@@ -83,10 +83,10 @@ viewServicos::~viewServicos()
 
 void viewServicos::on_save_clicked()
 {
-    remove("servicos.txt"); //apagando o txt de servicos, para poder inserir o novo com modificações.
+    remove("Servicos.txt"); //apagando o txt de servicos, para poder inserir o novo com modificações.
 
     int qtd_linhas;
-    qtd_linhas = ui->tbwServicos->rowCount();
+    qtd_linhas = ui->tbwServicos->rowCount(); //pegando o numero de linhas da tabela ja carregada
 
     Servico *s;
 
@@ -116,4 +116,9 @@ void viewServicos::on_save_clicked()
      cad.gravaServico(s);
      linha++;
     }
+}
+
+void viewServicos::on_edit_clicked()
+{
+
 }

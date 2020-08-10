@@ -10,13 +10,16 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -31,16 +34,16 @@ public:
     QAction *excluirFuncionario;
     QAction *adicionarServico;
     QAction *listarServicos;
-    QAction *novoAcento;
+    QAction *actionAtualizar;
+    QAction *actionAjuda;
     QWidget *centralwidget;
     QGridLayout *gridLayout;
     QTabWidget *tabWidget;
-    QWidget *tab_13;
     QWidget *tab_14;
+    QTableWidget *tbwServicos;
     QMenuBar *menubar;
     QMenu *menuClientes;
     QMenu *menuFuncion_rios;
-    QMenu *menuAcentos;
     QMenu *menuServi_os;
     QMenu *menuConfigura_es;
     QToolBar *toolBar;
@@ -56,34 +59,43 @@ public:
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
         MainWindow->setMaximumSize(QSize(800, 600));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/img/icones/Barbearia.png"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         adicionarCliente = new QAction(MainWindow);
         adicionarCliente->setObjectName(QString::fromUtf8("adicionarCliente"));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8(":/img/icones/cliente.png"), QSize(), QIcon::Normal, QIcon::Off);
-        adicionarCliente->setIcon(icon);
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/img/icones/cliente.png"), QSize(), QIcon::Normal, QIcon::Off);
+        adicionarCliente->setIcon(icon1);
         buscarCliente = new QAction(MainWindow);
         buscarCliente->setObjectName(QString::fromUtf8("buscarCliente"));
-        buscarCliente->setIcon(icon);
+        buscarCliente->setIcon(icon1);
         novoFuncionario = new QAction(MainWindow);
         novoFuncionario->setObjectName(QString::fromUtf8("novoFuncionario"));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/img/icones/barbeiro.png"), QSize(), QIcon::Normal, QIcon::Off);
-        novoFuncionario->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/img/icones/barbeiro.png"), QSize(), QIcon::Normal, QIcon::Off);
+        novoFuncionario->setIcon(icon2);
         excluirFuncionario = new QAction(MainWindow);
         excluirFuncionario->setObjectName(QString::fromUtf8("excluirFuncionario"));
+        excluirFuncionario->setIcon(icon2);
         adicionarServico = new QAction(MainWindow);
         adicionarServico->setObjectName(QString::fromUtf8("adicionarServico"));
-        QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/img/icones/maquina.png"), QSize(), QIcon::Normal, QIcon::Off);
-        adicionarServico->setIcon(icon2);
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/img/icones/maquina.png"), QSize(), QIcon::Normal, QIcon::Off);
+        adicionarServico->setIcon(icon3);
         listarServicos = new QAction(MainWindow);
         listarServicos->setObjectName(QString::fromUtf8("listarServicos"));
-        listarServicos->setIcon(icon2);
-        novoAcento = new QAction(MainWindow);
-        novoAcento->setObjectName(QString::fromUtf8("novoAcento"));
-        QIcon icon3;
-        icon3.addFile(QString::fromUtf8(":/img/icones/acento.png"), QSize(), QIcon::Normal, QIcon::Off);
-        novoAcento->setIcon(icon3);
+        listarServicos->setIcon(icon3);
+        actionAtualizar = new QAction(MainWindow);
+        actionAtualizar->setObjectName(QString::fromUtf8("actionAtualizar"));
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/img/icones/Atualizar.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionAtualizar->setIcon(icon4);
+        actionAjuda = new QAction(MainWindow);
+        actionAjuda->setObjectName(QString::fromUtf8("actionAjuda"));
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/img/icones/help.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionAjuda->setIcon(icon5);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         QSizePolicy sizePolicy1(QSizePolicy::Ignored, QSizePolicy::Ignored);
@@ -106,11 +118,11 @@ public:
         tabWidget->setTabsClosable(false);
         tabWidget->setMovable(false);
         tabWidget->setTabBarAutoHide(false);
-        tab_13 = new QWidget();
-        tab_13->setObjectName(QString::fromUtf8("tab_13"));
-        tabWidget->addTab(tab_13, QString());
         tab_14 = new QWidget();
         tab_14->setObjectName(QString::fromUtf8("tab_14"));
+        tbwServicos = new QTableWidget(tab_14);
+        tbwServicos->setObjectName(QString::fromUtf8("tbwServicos"));
+        tbwServicos->setGeometry(QRect(0, 0, 621, 361));
         tabWidget->addTab(tab_14, QString());
 
         gridLayout->addWidget(tabWidget, 0, 0, 1, 1);
@@ -123,8 +135,6 @@ public:
         menuClientes->setObjectName(QString::fromUtf8("menuClientes"));
         menuFuncion_rios = new QMenu(menubar);
         menuFuncion_rios->setObjectName(QString::fromUtf8("menuFuncion_rios"));
-        menuAcentos = new QMenu(menubar);
-        menuAcentos->setObjectName(QString::fromUtf8("menuAcentos"));
         menuServi_os = new QMenu(menubar);
         menuServi_os->setObjectName(QString::fromUtf8("menuServi_os"));
         menuConfigura_es = new QMenu(menubar);
@@ -142,7 +152,6 @@ public:
 
         menubar->addAction(menuClientes->menuAction());
         menubar->addAction(menuFuncion_rios->menuAction());
-        menubar->addAction(menuAcentos->menuAction());
         menubar->addAction(menuServi_os->menuAction());
         menubar->addAction(menuConfigura_es->menuAction());
         menuClientes->addSeparator();
@@ -151,16 +160,16 @@ public:
         menuClientes->addAction(buscarCliente);
         menuFuncion_rios->addAction(novoFuncionario);
         menuFuncion_rios->addAction(excluirFuncionario);
-        menuAcentos->addAction(novoAcento);
         menuServi_os->addAction(adicionarServico);
-        menuServi_os->addAction(listarServicos);
+        menuConfigura_es->addAction(actionAtualizar);
+        menuConfigura_es->addAction(actionAjuda);
         toolBar->addAction(adicionarCliente);
         toolBar->addSeparator();
         toolBar->addAction(novoFuncionario);
         toolBar->addSeparator();
-        toolBar->addAction(novoAcento);
-        toolBar->addSeparator();
         toolBar->addAction(adicionarServico);
+        toolBar->addSeparator();
+        toolBar->addAction(actionAjuda);
         toolBar->addSeparator();
 
         retranslateUi(MainWindow);
@@ -173,7 +182,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Barber Shop Management", nullptr));
         adicionarCliente->setText(QApplication::translate("MainWindow", "Adicionar", nullptr));
 #ifndef QT_NO_TOOLTIP
         adicionarCliente->setToolTip(QApplication::translate("MainWindow", "Adicionar novo cliente", nullptr));
@@ -186,27 +195,23 @@ public:
 #ifndef QT_NO_TOOLTIP
         novoFuncionario->setToolTip(QApplication::translate("MainWindow", "Adicionar um novo funcion\303\241rio", nullptr));
 #endif // QT_NO_TOOLTIP
-        excluirFuncionario->setText(QApplication::translate("MainWindow", "Excluir", nullptr));
+        excluirFuncionario->setText(QApplication::translate("MainWindow", "Editar", nullptr));
 #ifndef QT_NO_TOOLTIP
         excluirFuncionario->setToolTip(QApplication::translate("MainWindow", "Deletar um funcion\303\241rio", nullptr));
 #endif // QT_NO_TOOLTIP
-        adicionarServico->setText(QApplication::translate("MainWindow", "Adicionar", nullptr));
+        adicionarServico->setText(QApplication::translate("MainWindow", "Agendar", nullptr));
 #ifndef QT_NO_TOOLTIP
-        adicionarServico->setToolTip(QApplication::translate("MainWindow", "Adicionar novo servicio", nullptr));
+        adicionarServico->setToolTip(QApplication::translate("MainWindow", "Agendar servi\303\247o", nullptr));
 #endif // QT_NO_TOOLTIP
         listarServicos->setText(QApplication::translate("MainWindow", "Listar", nullptr));
 #ifndef QT_NO_TOOLTIP
         listarServicos->setToolTip(QApplication::translate("MainWindow", "Listar todos servi\303\247os", nullptr));
 #endif // QT_NO_TOOLTIP
-        novoAcento->setText(QApplication::translate("MainWindow", "Novo", nullptr));
-#ifndef QT_NO_TOOLTIP
-        novoAcento->setToolTip(QApplication::translate("MainWindow", "Criar um novo acento", nullptr));
-#endif // QT_NO_TOOLTIP
-        tabWidget->setTabText(tabWidget->indexOf(tab_13), QApplication::translate("MainWindow", "Acento 1", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_14), QApplication::translate("MainWindow", "Acento 2", nullptr));
+        actionAtualizar->setText(QApplication::translate("MainWindow", "Atualizar agenda", nullptr));
+        actionAjuda->setText(QApplication::translate("MainWindow", "Ajuda", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_14), QApplication::translate("MainWindow", "Agenda", nullptr));
         menuClientes->setTitle(QApplication::translate("MainWindow", "Clientes", nullptr));
         menuFuncion_rios->setTitle(QApplication::translate("MainWindow", "Funcion\303\241rios", nullptr));
-        menuAcentos->setTitle(QApplication::translate("MainWindow", "Acentos", nullptr));
         menuServi_os->setTitle(QApplication::translate("MainWindow", "Servi\303\247os", nullptr));
         menuConfigura_es->setTitle(QApplication::translate("MainWindow", "Configura\303\247\303\265es", nullptr));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", nullptr));

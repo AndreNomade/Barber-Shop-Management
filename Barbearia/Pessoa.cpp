@@ -1,34 +1,42 @@
-//
-// Created by Caique Rocha on 25/11/19.
-//
+// Created by: on 25/11/19:
+//Caique Rocha 
+//André Santana  
+//Rafael Turing
+//Juan Pablo
+//Lucas Marchiori
 
 #include "Pessoa.h"
 
 
-Pessoa::Pessoa(){
+Pessoa::Pessoa()
+{
 }
 
-Pessoa::Pessoa(string nome, string cpf): nome(nome),cpf(cpf){
+Pessoa::Pessoa(char* nome, int cpf)
+{
 
-
+   strcpy(this->nome, nome);
+   this->cpf = cpf;
 }
 
-Pessoa::~Pessoa(){
+Pessoa::~Pessoa()
+{
 }
 
-string Pessoa::getNome() {
+char* Pessoa::getNome() {
     return nome;
 }
 
-void Pessoa::setNome(string nome) {
-    this->nome = nome;
+void Pessoa::setNome(char* nome) {
+    strcpy(this->nome, nome);
 }
 
-string Pessoa::getCpf(){
+int Pessoa::getCpf() const
+{
     return cpf;
 }
 
-void Pessoa::setCpf(string cpf) {
+void Pessoa::setCpf(int cpf) {
     this->cpf = cpf;
 }
 

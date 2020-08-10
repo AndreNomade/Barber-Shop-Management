@@ -1,25 +1,19 @@
-/*
- * Created by:
- * André Santana
- * Caique Rocha
- * Juan Jimenez
- * Lucas Marchiore
- * Rafael Turing
-*/
+
 
 #include "Cadastro.h"
-#include "Cliente.h"
 #include "Servico.h"
 
-#include <QDebug>
 
-Cadastro::Cadastro(){
+Cadastro::Cadastro()
+{
 }
 
-Cadastro::~Cadastro(){
+Cadastro::~Cadastro()
+{
 }
 
-QString Cadastro::gravaFuncionario(Profissional *p){
+QString Cadastro::gravaFuncionario(Profissional *p)
+{
     QString deu_certo;
     ofstream ofs("Funcionario.txt", ios::app);
 
@@ -33,7 +27,8 @@ QString Cadastro::gravaFuncionario(Profissional *p){
         deu_certo = "Gravado com sucesso";
     }
 
-    else{
+    else
+    {
         deu_certo = "Erro ao gravar";
     }
     ofs.close();
@@ -46,7 +41,8 @@ QString Cadastro::gravaCliente(Cliente *c)
     ofstream ofs("Cliente.txt", ios::app);
 
 
-    if(ofs){
+    if(ofs)
+    {
 
 
         ofs << c->getNome() << endl;
@@ -57,14 +53,86 @@ QString Cadastro::gravaCliente(Cliente *c)
         deu_certo = "Gravado com sucesso";
     }
 
-    else{
+    else
+    {
         deu_certo = "Erro ao gravar";
     }
     ofs.close();
     return deu_certo;
 }
 
-QString Cadastro::gravaServico(Servico *s){
+bool Cadastro::comparaHorario(Servico *a, Servico *b){
+    if(a->getData().day() == b->getData().day()){
+        return (a->getHora() < b->getHora());
+    }else{
+        return(a->getData().day() < b->getData().day());
+    }
+}
+
+void Cadastro::ordenaServicos(){
+    //ordenando os servicos cadastrados dentro do arquivo txt.
+
+    vector<Servico*> aux;
+    Servico *s;
+    ifstream ifs("Servicos.txt");
+
+    if(ifs.is_open()){
+        char nome[30];
+        int dia, mes, ano, hora, minuto;
+        int cadeira;
+        bool cabelo;
+        bool barba;
+
+        ifs >> nome;
+        ifs >> cabelo;
+        ifs >> barba;
+        ifs >> cadeira;
+        ifs >> dia;
+        ifs >> mes;
+        ifs >> ano;
+        ifs >> hora;
+        ifs >> minuto;
+
+        while(ifs.good()){
+            QDate data = QDate(ano, mes, dia);
+            QTime horario = QTime(hora, minuto);
+
+            s = new Servico(nome, cabelo, barba, cadeira, data, horario);
+            aux.push_back(s);
+
+            ifs >> nome;
+            ifs >> cabelo;
+            ifs >> barba;
+            ifs >> cadeira;
+            ifs >> dia;
+            ifs >> mes;
+            ifs >> ano;
+            ifs >> hora;
+            ifs >> minuto;
+        }
+    }
+    ifs.close();
+
+    sort(aux.begin(),aux.end(), comparaHorario);
+
+    ofstream ofs("Servicos.txt");
+
+    for(int i=0; i < aux.size(); i++){
+        ofs << aux[i]->getCliente() << endl;
+        ofs << aux[i]->getCabelo() << endl;
+        ofs << aux[i]->getBarba() << endl;
+        ofs << aux[i]->getCadeira() <<endl;
+        ofs << aux[i]->getData().day() << endl;
+        ofs << aux[i]->getData().month() << endl;
+        ofs << aux[i]->getData().year() << endl;
+        ofs << aux[i]->getHora().hour() << endl;
+        ofs << aux[i]->getHora().minute() << endl;
+    }
+    ofs.close();
+}
+
+QString Cadastro::gravaServico(Servico *s)
+{
     QString deu_certo;
     ofstream ofs("Servicos.txt", ios::app);
     if(ofs){
@@ -85,6 +153,7 @@ QString Cadastro::gravaServico(Servico *s){
         deu_certo = "Erro ao gravar";
     }
     ofs.close();
+    ordenaServicos();
     return deu_certo;
 }
 
@@ -93,10 +162,9 @@ QStringList Cadastro::listaClientes(){
 
     ifstream ifs("Cliente.txt");
     QStringList nomes;
-
     char nome[30];
-    char contato[16];
-    char cpf[16];
+    int contato;
+    int cpf;
 
 
     if(ifs.is_open()){
@@ -118,23 +186,3 @@ QStringList Cadastro::listaClientes(){
 
     return nomes;
 }
-void Cadastro::exibeCliente(vector<Cliente> &clientes){
-    Cliente c;
-
-    ifstream ifs("Cliente.dat");
-
-    if (ifs.is_open())    {
-        ifs.read(reinterpret_cast<char *> (&c), sizeof (Cliente));
-
-
-           while (ifs.good())
-           {
-               clientes.push_back(c);
-               ifs.read(reinterpret_cast<char *> (&c), sizeof (Cliente));
-
-           }
-       }
-
-       ifs.close();
-   }
-

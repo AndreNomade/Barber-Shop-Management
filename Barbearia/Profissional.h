@@ -1,6 +1,9 @@
-//
-// Created by Caique Rocha on 25/11/19.
-//
+// Created by: on 25/11/19:
+// Caique Rocha 
+// André Santana  
+// Rafael Turing
+// Juan Pablo
+// Lucas Marchiori
 
 #ifndef BABERARIA_PROFISSIONAL_H
 #define BABERARIA_PROFISSIONAL_H
@@ -12,7 +15,7 @@
 class Profissional : public Pessoa{
 
 public:
-    Profissional(string nome, string cpf, char* cargo, float salario, int cadeira);
+    Profissional(char* nome, int cpf, char* cargo, float salario, int cadeira);
 
     virtual ~Profissional();
 

@@ -3,7 +3,8 @@
 
 viewCliente::viewCliente(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::viewCliente){
+    ui(new Ui::viewCliente)
+{
 
 
     ui->setupUi(this);
@@ -18,7 +19,7 @@ viewCliente::viewCliente(QWidget *parent) :
     // Cria o cabeçalho
     ui->tbwCliente->setHorizontalHeaderLabels(header);
 
-    // Configura o tamanho da coluna
+    // Configura o tamanho da coluna e quantas linhas terá
     ui->tbwCliente->setColumnWidth(0, 155);
     ui->tbwCliente->setColumnWidth(1, 155);
     ui->tbwCliente->setColumnWidth(1, 150);
@@ -27,8 +28,8 @@ viewCliente::viewCliente(QWidget *parent) :
 
         int linha = 0;
         char nome[30];
-        char contato[16];
-        char cpf[16];
+        int contato;
+        int cpf;
 
         ifs >> nome;
         ifs >> contato;
@@ -37,13 +38,13 @@ viewCliente::viewCliente(QWidget *parent) :
         while(ifs.good()){
 
 
-           // Insere linha
+           // Insere  uma linha nova
            ui->tbwCliente->insertRow(linha);
 
            // Adiciona nova celula
            ui->tbwCliente->setItem(linha, 0, new QTableWidgetItem(nome));
-           ui->tbwCliente->setItem(linha, 1, new QTableWidgetItem(contato));
-           ui->tbwCliente->setItem(linha, 2, new QTableWidgetItem(cpf));
+           ui->tbwCliente->setItem(linha, 1, new QTableWidgetItem(to_string(contato).c_str()));
+           ui->tbwCliente->setItem(linha, 2, new QTableWidgetItem(to_string(cpf).c_str()));
 
            ifs >> nome;
            ifs >> contato;
@@ -57,13 +58,15 @@ viewCliente::viewCliente(QWidget *parent) :
     ifs.close();
 }
 
-viewCliente::~viewCliente(){
+viewCliente::~viewCliente()
+{
     delete ui;
 }
 
 
 
-void viewCliente::on_btnBuscar_clicked(){
+void viewCliente::on_btnBuscar_clicked()
+{
     ui->tbwCliente->setRowCount(0); // limpando a tabela
 
     QString Qnome = ui->edtBuscar->text();
@@ -71,39 +74,44 @@ void viewCliente::on_btnBuscar_clicked(){
     strcpy(char_nome, Qnome.toStdString().c_str()); //transforma o nome de QString para array de char
     ifstream ifs("Cliente.txt");
 
-        if (ifs.is_open()){
+        if (ifs.is_open())
+        {
 
             int linha = 0;
             char nome[30];
-            char contato[16];
-            char cpf[16];
+            int contato;
+            int cpf;
             bool achou = false;
 
             ifs >> nome;
             ifs >> contato;
             ifs >> cpf;
 
-            while (ifs.good() && !achou ){
-                if (!strcmp(char_nome, "")){
+            while (ifs.good() && !achou )
+            {
+                if (!strcmp(char_nome, "")) //se o usuario não digitou nada, irá voltar a tabela ao normal
+                {
                     ui->tbwCliente->insertRow(linha);
 
                     ui->tbwCliente->setItem(linha, 0, new QTableWidgetItem(nome));
-                    ui->tbwCliente->setItem(linha, 1, new QTableWidgetItem(contato));
-                    ui->tbwCliente->setItem(linha, 2, new QTableWidgetItem(cpf));
+                    ui->tbwCliente->setItem(linha, 1, new QTableWidgetItem(to_string(contato).c_str()));
+                    ui->tbwCliente->setItem(linha, 2, new QTableWidgetItem(to_string(cpf).c_str()));
 
                     ifs >> nome;
                     ifs >> contato;
                     ifs >> cpf;
                     linha++;
                 }
-                else {
-                    if (!strcmp(char_nome, nome)){
+                else
+                {
+                    if (!strcmp(char_nome, nome)) //se o nome do arquivo for igual ao inserido pelo usuario, adiciona ele na tabela
+                    {
 
                         ui->tbwCliente->insertRow(linha);
 
                         ui->tbwCliente->setItem(linha, 0, new QTableWidgetItem(nome));
-                        ui->tbwCliente->setItem(linha, 1, new QTableWidgetItem(contato));
-                        ui->tbwCliente->setItem(linha, 2, new QTableWidgetItem(cpf));
+                        ui->tbwCliente->setItem(linha, 1, new QTableWidgetItem(to_string(contato).c_str()));
+                        ui->tbwCliente->setItem(linha, 2, new QTableWidgetItem(to_string(cpf).c_str()));
 
                         achou = true;
 
@@ -111,7 +119,8 @@ void viewCliente::on_btnBuscar_clicked(){
 
 
                     }
-                    else {
+                    else // se não, le as proximas linhas
+                    {
                         ifs >> nome;
                         ifs >> contato;
                         ifs >> cpf;
@@ -123,18 +132,19 @@ void viewCliente::on_btnBuscar_clicked(){
         ifs.close();
 }
 
-void viewCliente::on_pushButton_clicked(){
+void viewCliente::on_pushButton_clicked()
+{
     remove("Cliente.txt"); //apagando o txt de servicos, para poder inserir o novo com modificações.
 
     int qtd_linhas;
-    qtd_linhas = ui->tbwCliente->rowCount();
+    qtd_linhas = ui->tbwCliente->rowCount(); // quantidade de linhas da tabela.
 
     Cliente* c;
 
     int linha = 0;
     char nome[30];
-    char contato[15];
-    char cpf[16];
+    int contato;
+    int cpf;
 
     QString qnome;
     QString qcpf;
@@ -148,16 +158,14 @@ void viewCliente::on_pushButton_clicked(){
         qcpf = ui->tbwCliente->item(linha,2)->text();
 
 
-        //abaixo convertendo de QString para os tipos necessarios
+         //abaixo convertendo de QString para os tipos necessarios
         strcpy(nome, qnome.toStdString().c_str());
-        strcpy(cpf, qcpf.toStdString().c_str());
-        strcpy(contato, qcontato.toStdString().c_str());
+        cpf = qcpf.toInt();
+        contato = qcontato.toInt();
 
-
-
-        c = new Cliente(nome, cpf, contato);
+        c = new Cliente(nome, cpf, contato); // criando um objeto da Classe cliente com as informações recebidas
         Cadastro cad;
-        cad.gravaCliente(c);
+        cad.gravaCliente(c); //gravando o objeto no arquivo
         linha++;
       }
 }
